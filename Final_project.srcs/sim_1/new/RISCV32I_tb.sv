@@ -45,19 +45,19 @@ module RISCV32I_tb;
   end
 
   // Monitor for displaying aluOut
-  initial begin
-    $display("Time\t\taluOut");
-    $display("-------------------------");
-    #10;
-    $monitor("%0t\t\t%h", $time, aluOut);
-    #5;
-    $monitor("%0t\t\t%h", $time, aluOut);
-    #5;
-    $monitor("%0t\t\t%h", $time, aluOut);
-    #5;
-    $monitor("%0t\t\t%h", $time, aluOut);
-    #25; 
-    $finish;
-  end
+//  initial begin
+//    $display("Time\t\taluOut");
+//    $display("-------------------------");
+//    #10;
+//    $monitor("%0t\t\t%h", $time, aluOut);
+//    #5;
+//    $monitor("%0t\t\t%h", $time, aluOut);
+//    #5;
+//    $monitor("%0t\t\t%h", $time, aluOut);
+//    #5;
+//    $monitor("%0t\t\t%h", $time, aluOut);
+//    #25; 
+//    $finish;
+//  end
 
 endmodule

@@ -88,33 +88,23 @@ module aluDecoder(
             4'b0001: // I type   
             begin
                 case(func3)
-                    3'b000: // add and sub
+                    3'b000: // addi
                     begin
-////                        $dispaly("I ran at add and sub", func3, func7);
-//                        if(func7[5] == 0)
-//                        begin
-//                            aluControl = 4'b0001;
-                            
-//                        end
-//                        else if(func7[5] == 1)
-//                            aluControl = 4'b0010;
-//                        else
-//                            aluControl = 4'b0000;
                         aluControl = 4'h1;
                     end
-                    3'b001: // sll
+                    3'b001: // slli
                     begin
                         aluControl = 4'h3;
                     end
-                    3'b010: // slt
+                    3'b010: // slti
                     begin
                         aluControl = 4'h4;
                     end
-                    3'b011: // sltu
+                    3'b011: // sltiu
                     begin
                         aluControl = 4'h5;
                     end
-                    3'b100: // xor
+                    3'b100: // xori
                     begin
                         aluControl = 4'h6;
                     end
@@ -127,11 +117,11 @@ module aluDecoder(
                         else
                             aluControl = 4'b0000;
                     end
-                    3'b110: // or
+                    3'b110: // ori
                     begin
                         aluControl = 4'h9;
                     end
-                    3'b111: // and
+                    3'b111: // andi
                     begin
                         aluControl = 4'hA;
                     end
