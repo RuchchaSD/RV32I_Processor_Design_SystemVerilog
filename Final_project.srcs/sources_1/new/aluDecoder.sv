@@ -34,7 +34,7 @@ module aluDecoder(
                 case(func3)
                     3'b000: // add and sub
                     begin
-//                        $dispaly("I ran at add and sub", func3, func7);
+
                         if(func7[5] == 0)
                         begin
                             aluControl = 4'b0001;
@@ -131,9 +131,9 @@ module aluDecoder(
                     end
                 endcase
             end
-            4'b0010: // S type
+            4'b0010: // S type & LW , SW, LUI, AUIPC, JALR, JAL, BR
             begin
-                aluControl = 0;
+                aluControl = 4'h1;
             end
             4'b0011: // SB type
             begin

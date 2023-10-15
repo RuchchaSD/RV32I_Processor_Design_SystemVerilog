@@ -26,21 +26,21 @@ module RISCV32I_tb;
   parameter DATA_WIDTH = 32;
   parameter ADDR_WIDTH = 32;
 
+  //Define Registers
+  logic [31:0] dataW,aluOut;
+  logic clk;
+  logic rst = 0;
   // Instantiate the module
   RISCV32I #(DATA_WIDTH,ADDR_WIDTH) dut (clk, rst, dataW,aluOut);
 
-  // Clock generation
-  logic clk;
   always #5 clk = ~clk;
 
-  // Reset generation
-  logic rst = 0;
   initial begin
     clk = 0;
     rst = 1;
     #10;
     rst = 0;
-    #100;
+    #240;
     $finish;
   end
 

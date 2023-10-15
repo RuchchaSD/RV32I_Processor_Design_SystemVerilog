@@ -46,7 +46,7 @@
           7'b0110111 /*AUIPC-type*/    : 
               imm = {instruction[31:12], 12'b0};
           7'b1101111 /*JAL*/    : 
-              imm = {instruction[31]? 20'b1:20'b0 , instruction[19:12], instruction[19:12],instruction[20], instruction[30:25],instruction[24:21],1'b0};
+              imm = {instruction[31]? 11'b1:11'b0 , instruction[17:12],instruction[18], instruction[30:19],1'b0};
           default                    : 
               imm = {32'b0};
           endcase

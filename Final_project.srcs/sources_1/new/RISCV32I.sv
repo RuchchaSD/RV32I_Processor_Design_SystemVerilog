@@ -29,14 +29,15 @@ module RISCV32I#(
     output logic [31:0] dataW, aluOut
     );
 
-    logic pcSel,beq,blt,regWrite,memWrite,branch,aSel,bSel;
-    logic [1:0] wSel;
+    logic pcSel,beq,blt,regWrite,branch,aSel,bSel;
+    logic [1:0] wSel,memWrite;
     logic [3:0] immSel;
     logic [3:0] aluControl;
-    logic [31:0] instruction,PC;
+    logic [31:0] instruction,nextPC,PC;
+    logic [2:0] extSel;
 
-    instruction_fetch ins(clk,rst, pcSel,aluOut,instruction,PC);
-    controller c(clk, instruction, beq, blt, immSel, aluControl, pcSel, regWrite, memWrite, branch,aSel,bSel,wSel);
-    datapath d(clk, rst, PC, instruction, immSel, aluControl, regWrite, memWrite, branch, aSel, bSel, wSel, beq, blt, dataW, aluOut);
+    instruction_fetch ins(clk,rst, pcSel,aluOut,instruction,nextPC,PC);
+    controller c(clk, instruction, beq, blt, immSel, aluControl, pcSel, regWrite, memWrite, branch,aSel,bSel,wSel, extSel);
+    datapath d(clk, rst, nextPC, PC, instruction, immSel, aluControl, regWrite, memWrite, branch, aSel, bSel, wSel,extSel, beq, blt, dataW, aluOut);
 
 endmodule

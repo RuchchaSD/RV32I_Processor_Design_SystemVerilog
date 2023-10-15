@@ -23,33 +23,37 @@
 module datapath(
     input clk,
     input rst,
+    input logic [31:0] nextPC,
     input logic [31:0] PC,
     input logic [31:0] instruction,
     input logic [3:0] immSel,
     input logic [3:0] aluControl,
     input logic regWrite,
-    input logic memWrite,
+    input logic [1:0] memWrite,
     input logic branch,
     input logic aSel,
     input logic bSel,
     input logic [1:0] wSel,
+    input logic [2:0] extSel,
     
     output logic beq,
     output logic blt,
     output logic [31:0] dataW,
     output logic [31:0] aluOut
     );
-
-    logic [31:0] dataA, dataB, op1, op2, memOut, imm;
+    
+    logic [31:0] dataA, dataB, op1, op2, memOut, imm , extOut;
     logic isZero;
     logic [4:0] addA, addB, addW;
-
+    
     register_memory reg_mem(clk, rst, regWrite, addW, addA, addB, dataW, dataA, dataB);
     alu alu(aluControl, op1, op2, aluOut, isZero);
-    // branchAlu bAlu(branch, dataA, dataB, beq, blt);
     data_memory dMem(clk, memWrite, aluOut, dataB, memOut);
-    //clk, rst, memWrite, aluOut, dataB, memOut);
     imm_gen immg(instruction, imm);
+    data_extract de(memOut, extSel, extOut);
+    branch_comp bc(branch, dataA, dataB, beq, blt);
+    
+    
     
     always_comb begin
         addA = instruction[19 : 15];
@@ -57,8 +61,7 @@ module datapath(
         addW = instruction[11:7];
     end
     
-    always_comb
-    begin
+    always_comb begin
         if(bSel)
             op2 = imm;
         else
@@ -71,8 +74,9 @@ module datapath(
         
         case(wSel) 
             0: dataW = aluOut;
-            1: dataW = memOut;
-            2: dataW = PC;
+            1: dataW = extOut;
+            2: dataW = nextPC;
+            3: dataW = imm;
             default: dataW = 0;
         endcase
     end

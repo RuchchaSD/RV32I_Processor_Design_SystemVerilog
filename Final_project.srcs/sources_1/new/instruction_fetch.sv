@@ -26,8 +26,11 @@ module instruction_fetch#(
     input logic pcSel,
     input logic  [DATA_WIDTH-1:0] aluOut,
     output logic [DATA_WIDTH-1:0] instruction,
+    output logic [DATA_WIDTH-1:0] nextPC,
     output logic [DATA_WIDTH-1:0] PC
     );
+
+logic [DATA_WIDTH-1:0] aluAddress;
 
 Instruction_memory instruction_memory_inst(
     .clk(clk),
@@ -35,16 +38,25 @@ Instruction_memory instruction_memory_inst(
     .instruction(instruction)
     );
 
+
+
+always_comb 
+    nextPC = PC + 4;
+
 always_ff @(posedge clk) begin
     if(rst) begin
         PC = 0;
     end
     else begin
         if(pcSel)
-            PC <= aluOut;
+            PC <= aluAddress;
         else 
-            PC <= PC + 4;
+            PC <= nextPC;
     end
+end
+
+always_ff @(negedge clk) begin
+    aluAddress <= aluOut;
 end
 
 

@@ -28,7 +28,7 @@ module alu(
 
     always_comb 
         case (aluControl)
-            4'h1: aluOut <= op1 + op2; //ADD
+            4'h1: aluOut <= $signed(op1) + $signed(op2); //ADD
             4'h2: aluOut <= op1 - op2; //SUB
             4'h3: aluOut <= op1 << op2; //SLL
             4'h4: aluOut <= $signed(op1) < $signed(op2); //SLT

@@ -21,25 +21,61 @@
 
 
 module data_memory#(
-    parameter ADDRESS_LENGTH = 9, 
+    parameter ADDRESS_LENGTH = 5, 
     parameter width = 32
 )(
     input clk,
-    input logic memWrite, // active high
+    input logic [1:0] memWrite, // 1 = sw, 2 = sh 3 = sb 
    // input logic memRead, // active high
     input logic [ADDRESS_LENGTH - 1:0] addRW,
     input logic [width - 1:0] dataW,
     output logic[width - 1:0] dataOut
     );
     
-    logic  [width - 1:0] DMEM[ 2**(ADDRESS_LENGTH-2) :0];
-    
+//    logic  [width - 1:0] DMEM[ 2**(ADDRESS_LENGTH-2) :0];
+      logic [7 : 0] DMEM[2**ADDRESS_LENGTH - 1 : 0];    
 
-    assign dataOut = DMEM[addRW];
+initial begin
+    for(int i = 0; i < 2**ADDRESS_LENGTH; i++)
+        DMEM[i] = 0;
+        
+    DMEM[0] = 32'hff;
+    DMEM[1] = 32'hff;
+    DMEM[2] = 32'hff;
+    DMEM[3] = 32'hff;
+end
+
+
+
+
+
+
+    assign dataOut[31:24] = DMEM[addRW];
+    assign dataOut[23:16] = DMEM[addRW+1];
+    assign dataOut[15:8] = DMEM[addRW+2];
+    assign dataOut[7:0] = DMEM[addRW+3];
 
     always_ff @(posedge clk)
-        if(memWrite)
-            DMEM[addRW] <= dataW ;
+//        if(memWrite)
+//            DMEM[addRW] <= dataW ;
+        case(memWrite)
+            1   :
+                begin
+                    DMEM[addRW]     <= dataW[31 : 24];
+                    DMEM[addRW + 1] <= dataW[23 :16];
+                    DMEM[addRW + 2] <= dataW[15 : 8];
+                    DMEM[addRW + 3] <= dataW[7  : 0];
+                end
+            2   :
+                begin
+                    DMEM[addRW]     <= dataW[15 : 8];
+                    DMEM[addRW + 1] <= dataW[7  : 0];
+                end
+            3   :
+                begin
+                    DMEM[addRW] <= dataW[7:0];
+                end
+        endcase
     
 // implemented bounds checking and error handeling  
 //    always_ff @(posedge clk) begin
