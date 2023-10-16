@@ -5,19 +5,24 @@ module controller(
     input logic [31:0] instruction,
     input logic beq,
     input logic blt,
+    input logic [1:0] diff, //0:rs1, 1:pc
+    input logic [1:0] ilt,
+    
     output logic [3:0] immSel,
     output logic [3:0] aluControl,
-    output logic pcSel, //0:pc+4, 1:aluOut
+    output logic [1:0] pcSel, //0:pc+4, 1:aluOut
     output logic regWrite, 
     output logic [1:0] memWrite, 
     output logic branch, //0:beq, 1:blt
-    output logic aSel, //0:rs1, 1:pc
-    output logic bSel, //0:rs2, 1:imm
+    output logic [1:0] aSel, //0:rs1, 1:pc
+    output logic [1:0] bSel, //0:rs2, 1:imm
     output logic [1:0] wSel, //0:aluOut, 1:memOut, 2: PC+4
-    output logic [2:0] extSel //0:sign extend, 1:zero extend, 2:shift left 1, 3:shift left 12
+    output logic [2:0] extSel, //0:sign extend, 1:zero extend, 2:shift left 1, 3:shift left 12
+    output logic increment, counterEn, memWsel, dataregWrite
     );
 
     logic [6:0] opcode;
+    logic [1:0] pccon;
     logic [2:0] funct3;
     logic [6:0] funct7;
     logic [3:0] aluOp;
@@ -44,12 +49,14 @@ module controller(
     assign  JALR = 7'b1100111;
     assign  AUIPC = 7'b0010111;
     assign  LUI = 7'b0110111;
+    assign MEMCOPY = 7'b1101011;
 
      
 //    assign pcSel = (opcode == BR && (beq || blt)) || opcode == JAL ||opcode == JALR; // not finished
     assign regWrite = (opcode==R_TYPE || opcode==LW || opcode == ITYPE_ADD || opcode == JALR || opcode == JAL || opcode == AUIPC || opcode == LUI);
 //    assign memWrite = opcode == SW;
-    assign aSel = (opcode == AUIPC || opcode == JAL || opcode == BR);
+    assign aSel[0] = (opcode == AUIPC || opcode == JAL || opcode == BR);// and also add 1 for the second instruction
+    assign aSel[1] = (opcode == MEMCOPY);
     // invert bSel to use less logic - optimize
     assign bSel = (opcode == ITYPE_ADD || opcode == LW || opcode == SW || opcode == JALR || opcode == JAL || opcode == AUIPC || opcode == LUI || opcode == BR);
 
@@ -111,9 +118,29 @@ module controller(
 
             
             
+//pccom
+    always_comb begin
+        if( opcode == BR)
+            pccon =1;
+        
+        else if(opcode == JAL || opcode == JALR)
+            pccon =2;
+        
+        else if(opcode == MEMCOPY)
+            pccon = 2;
+        
+        else
+            pccon = 0;
+    
+    end
+
+
+
+
+
 //pcSel //beq,blt
     always_comb begin
-        if(opcode == BR)
+        if(pccon == 1)
             case(funct3)
                 3'b000://BEQ
                     if(beq)
@@ -148,8 +175,10 @@ module controller(
                 default:
                      pcSel = 0;
             endcase
-        else if(opcode == JAL || opcode == JALR)
+        else if(pccon == 2)
             pcSel = 1;
+        else if(pccon == 3)
+            pcSel = 2;
         else
             pcSel = 0;
     end

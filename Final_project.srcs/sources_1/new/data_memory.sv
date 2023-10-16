@@ -25,7 +25,7 @@ module data_memory#(
     parameter width = 32
 )(
     input clk,
-    input logic [1:0] memWrite, // 1 = sw, 2 = sh 3 = sb 
+    input logic [2:0] memWrite, // 1 = sw, 2 = sh 3 = sb 
    // input logic memRead, // active high
     input logic [ADDRESS_LENGTH - 1:0] addRW,
     input logic [width - 1:0] dataW,
@@ -74,6 +74,21 @@ end
             3   :
                 begin
                     DMEM[addRW] <= dataW[7:0];
+                end
+            4   :
+                begin
+                    DMEM[addRW]     <= dataW[31 : 24];
+                end
+            5   :
+                begin
+                    DMEM[addRW]     <= dataW[31 : 24];
+                    DMEM[addRW + 1] <= dataW[23 :16];
+                end
+            6   :
+                begin
+                    DMEM[addRW]     <= dataW[31 : 24];
+                    DMEM[addRW + 1] <= dataW[23 :16];
+                    DMEM[addRW + 2] <= dataW[15 : 8];
                 end
         endcase
     

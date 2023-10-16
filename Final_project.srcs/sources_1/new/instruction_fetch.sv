@@ -23,7 +23,7 @@ module instruction_fetch#(
 )(
     input clk,
     input logic rst,
-    input logic pcSel,
+    input logic [1:0] pcSel,
     input logic  [DATA_WIDTH-1:0] aluOut,
     output logic [DATA_WIDTH-1:0] instruction,
     output logic [DATA_WIDTH-1:0] nextPC,
@@ -48,8 +48,10 @@ always_ff @(posedge clk) begin
         PC = 0;
     end
     else begin
-        if(pcSel)
+        if(pcSel == 2'b01)
             PC <= aluAddress;
+        else if(pcSel == 2'b10)
+            PC <= PC;
         else 
             PC <= nextPC;
     end

@@ -24,8 +24,8 @@ module data_extract(
     input logic [31:0] memOut,
     input logic [2:0] extSel,
     output logic [31:0] extOut
-    // output [15:0] extOut_h
-    // output [7:0] extout_b
+//    output logic [15:0] extOut_h,
+//    output logic [7:0] extout_b
     );
     
     always_comb 

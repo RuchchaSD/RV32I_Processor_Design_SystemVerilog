@@ -24,21 +24,21 @@
       always_comb
           case(instruction[6:0])
           7'b0000011 /*I-type load*/     : 
-              imm = {instruction[31]? {20{1'b1}}:20'b0 , instruction[31:20]};
+              imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[31:20]};
           7'b0010011 /*I-type addi*/     :
               begin 
               if((instruction[31:25]==7'b0100000&&instruction[14:12]==3'b101)||(instruction[14:12]==3'b001)||instruction[14:12]==3'b101)
 //                  imm = {shamt[4]? {27{1'b1}}:27'b0,shamt}; check if this works
-                  imm = {27'b0,shamt};
-              else
+                  imm = {{27{1'b0}},shamt};
+              else 
                   imm = {instruction[31]? 20'b1:20'b0 , instruction[31:20]};
               end
           7'b0100011 /*S-type*/    : 
-              imm = {instruction[31]? 20'b1:20'b0 , instruction[31:25], instruction[11:7]};
+              imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[31:25], instruction[11:7]};
           7'b1100011 /*B-type*/    : 
-              imm = {instruction[31]? 20'b1:20'b0 , instruction[7], instruction[30:25],instruction[11:8],1'b0};
+              imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[7], instruction[30:25],instruction[11:8],1'b0};
           7'b1100111 /*JALR*/    : 
-              imm = {instruction[31]? 20'b1:20'b0 , instruction[30:25], instruction[24:21], instruction[20]};
+              imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[30:25], instruction[24:21], instruction[20]};
           7'b0010111 /*U-type*/    : 
               imm = {instruction[31]? 1'b1:1'b0 , instruction[30:20], instruction[19:12],12'b0};
           7'b0110111 /*LUI-type*/    : 
@@ -46,7 +46,7 @@
           7'b0110111 /*AUIPC-type*/    : 
               imm = {instruction[31:12], 12'b0};
           7'b1101111 /*JAL*/    : 
-              imm = {instruction[31]? 11'b1:11'b0 , instruction[17:12],instruction[18], instruction[30:19],1'b0};
+              imm = {instruction[31]? {11{1'b1}}:{11{1'b0}}, instruction[17:12],instruction[18], instruction[30:19],1'b0};
           default                    : 
               imm = {32'b0};
           endcase

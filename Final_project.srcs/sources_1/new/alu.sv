@@ -42,6 +42,7 @@ module alu(
             4'hc: aluOut <= op1 != op2; //BNE
             4'hd: aluOut <= $signed(op1) >= $signed(op2); //BGE
             4'he: aluOut <= op1 >= op2; //BGEU
+            4'hf: aluOut <= op1 * op2; //MUL
             default: aluOut <= 31'b0; //NOP
         endcase
 

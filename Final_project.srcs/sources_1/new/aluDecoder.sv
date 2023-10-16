@@ -35,13 +35,15 @@ module aluDecoder(
                     3'b000: // add and sub
                     begin
 
-                        if(func7[5] == 0)
+                        if(func7[5] == 0 && func7[4] == 0)
                         begin
                             aluControl = 4'b0001;
                             
                         end
-                        else if(func7[5] == 1)
+                        else if(func7[5] == 1 && func7[4] == 0)
                             aluControl = 4'b0010;
+                        else if(func7[5] == 0 && func7[4] == 1)
+                            aluControl = 4'b1111;
                         else
                             aluControl = 4'b0000;
                     end
@@ -108,12 +110,12 @@ module aluDecoder(
                     begin
                         aluControl = 4'h6;
                     end
-                    3'b101: // srl and sra
+                    3'b101: // srli and srai
                     begin
                         if(func7[5] == 0)
-                            aluControl = 4'h8; // srl
+                            aluControl = 4'h8; // srli
                         else if(func7[5] == 1)
-                            aluControl = 4'h7; // sra
+                            aluControl = 4'h7; // srai
                         else
                             aluControl = 4'b0000;
                     end

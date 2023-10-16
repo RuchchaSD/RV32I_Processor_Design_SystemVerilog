@@ -40,7 +40,7 @@ module RISCV32I_tb;
     rst = 1;
     #10;
     rst = 0;
-    #240;
+    #400;
     $finish;
   end
 
