@@ -47,6 +47,8 @@
               imm = {instruction[31:12], 12'b0};
           7'b1101111 /*JAL*/    : 
               imm = {instruction[31]? {11{1'b1}}:{11{1'b0}}, instruction[17:12],instruction[18], instruction[30:19],1'b0};
+          7'b1101011 /*MEMCOPY*/    : 
+              imm = {{17{1'b0}}, instruction[14:12], instruction[31:25], instruction[11:7]};
           default                    : 
               imm = {32'b0};
           endcase

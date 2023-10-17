@@ -43,7 +43,7 @@ Instruction_memory instruction_memory_inst(
 always_comb 
     nextPC = PC + 4;
 
-always_ff @(posedge clk) begin
+always_ff @(negedge clk) begin
     if(rst) begin
         PC = 0;
     end
@@ -57,10 +57,11 @@ always_ff @(posedge clk) begin
     end
 end
 
-always_ff @(negedge clk) begin
-    aluAddress <= aluOut;
-end
+// always_ff @(posedge clk) begin
+//     aluAddress <= aluOut;
+// end
 
+assign aluAddress = aluOut;
 
 
 endmodule

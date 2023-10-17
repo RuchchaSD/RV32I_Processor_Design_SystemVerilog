@@ -21,7 +21,7 @@
 
 
 module data_memory#(
-    parameter ADDRESS_LENGTH = 5, 
+    parameter ADDRESS_LENGTH = 6, 
     parameter width = 32
 )(
     input clk,
@@ -39,10 +39,20 @@ initial begin
     for(int i = 0; i < 2**ADDRESS_LENGTH; i++)
         DMEM[i] = 0;
         
-    DMEM[0] = 32'hff;
-    DMEM[1] = 32'hff;
-    DMEM[2] = 32'hff;
-    DMEM[3] = 32'hff;
+    // DMEM[0] = 32'hff;
+    // DMEM[1] = 32'hff;
+    // DMEM[2] = 32'hff;
+    // DMEM[3] = 32'hff;
+
+    DMEM[13] = 32'h11;
+    DMEM[14] = 32'h22;
+    DMEM[15] = 32'h33;
+    DMEM[16] = 32'h44;
+    DMEM[17] = 32'h55;
+    DMEM[18] = 32'h66;
+    DMEM[19] = 32'h77;
+    DMEM[20] = 32'h88;
+    
 end
 
 

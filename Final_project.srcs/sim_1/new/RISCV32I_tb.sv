@@ -36,11 +36,11 @@ module RISCV32I_tb;
   always #5 clk = ~clk;
 
   initial begin
-    clk = 0;
+    clk = 1;
     rst = 1;
     #10;
     rst = 0;
-    #400;
+    #80;
     $finish;
   end
 

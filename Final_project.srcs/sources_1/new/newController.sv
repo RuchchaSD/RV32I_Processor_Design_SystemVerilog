@@ -30,11 +30,11 @@ module newController(
     input logic [1:0] diff, //0:rs1, 1:pc
     input logic [1:0] ilt,
 //outputs
-    output logic [3:0] immSel,// not needed
+    // output logic [3:0] immSel,// not needed
     output logic [3:0] aluControl,
     output logic [1:0] pcSel, //0:pc+4, 1:aluOut
     output logic regWrite, 
-    output logic [1:0] memWrite, 
+    output logic [2:0] memWrite, 
     output logic branch, //0:beq, 1:blt
     output logic [1:0] aSel, //0:rs1, 1:pc
     output logic [1:0] bSel, //0:rs2, 1:imm
@@ -45,73 +45,85 @@ module newController(
     
     logic [6:0] opcode;
     logic [1:0] pccon;
-    logic [2:0] funct3;
+    logic [2:0] funct3,extOp;
     logic [6:0] funct7;
-    logic [3:0] aluOp;
-    logic isBranch;
+    logic [2:0] memWriteCon;
+    // logic [3:0] aluOp;
+    logic jump;
     logic [31:0] microIns;
-    logic [7:0] microOp,insmicroOp,_;
-    logic [7:0] nextOp;
+    logic [7:0] microOp,insmicroOp;
+    logic [7:0] nextOp,tempOp;
     
     
     
     logic  [31 :0] Control[ 255:0];
-    
+//micro instructions
     initial begin
-        Control[0] = 32'b00000000000000000000000000000000;
-        Control[1] = 32'b00000000000100100000000011100000;
-        Control[2] = 32'b00000000001000100000000011100000;
-        Control[3] = 32'b00000000001100100000000011100000;
-        Control[5] = 32'b00000000010000100000000011100000;
-        Control[7] = 32'b00000000010100100000000011100000;
-        Control[9] = 32'b00000000011000100000000011100000;
-        Control[11] = 32'b00000000100000100000000011100000;
-        Control[12] = 32'b00000000011100100000000011100000;
-        Control[13] = 32'b00000000100100100000000011100000;
-        Control[15] = 32'b00000000101000100000000011100000;
-        Control[10] = 32'b00000000111100100000000011100000;
+        for (int i=0; i < 256; ++i) begin
+            Control[i] = 32'b00000000000000000000000001110000;
+        end
+
+
+        //Rtype
+        // Control[0] = 32'b00000000000000000000000001110000;
+        Control[1] = 32'b00000000000100100000000001110000;
+        Control[2] = 32'b00000000001000100000000001110000;
+        Control[3] = 32'b00000000001100100000000001110000;
+        Control[5] = 32'b00000000010000100000000001110000;
+        Control[7] = 32'b00000000010100100000000001110000;
+        Control[9] = 32'b00000000011000100000000001110000;
+        Control[11] = 32'b00000000100000100000000001110000;
+        Control[12] = 32'b00000000011100100000000001110000;
+        Control[13] = 32'b00000000100100100000000001110000;
+        Control[15] = 32'b00000000101000100000000001110000;
+        Control[10] = 32'b00000000111100100000000001110000;
 
         //LUI
-        Control[17] = 32'b00000000000000100000011111100000;
+        Control[17] = 32'b00000000000000100000001111110000;
         //AUIPC
-        Control[129] = 32'b00000000000100100001010011100000;
+        Control[129] = 32'b00000000000100100000101001110000;
 
         //JALR
-        Control[33] = 32'b00000000000110100000011011100000;
+        Control[33] = 32'b00000000000110100000001101110000;
         //Itype Arith
-        Control[49] = 32'b00000000000100100000010011100000;
-        Control[53] = 32'b00000000010000100000010011100000;
-        Control[55] = 32'b00000000010100100000010011100000;
-        Control[57] = 32'b00000000011000100000010011100000;
-        Control[61] = 32'b00000000100100100000010011100000;
-        Control[63] = 32'b00000000101000100000010011100000;
-        Control[51] = 32'b00000000001100100000010011100000;
-        Control[59] = 32'b00000000100000100000010011100000;
-        Control[60] = 32'b00000000011100100000010011100000;
+        Control[49] = 32'b00000000000100100000001001110000;
+        Control[53] = 32'b00000000010000100000001001110000;
+        Control[55] = 32'b00000000010100100000001001110000;
+        Control[57] = 32'b00000000011000100000001001110000;
+        Control[61] = 32'b00000000100100100000001001110000;
+        Control[63] = 32'b00000000101000100000001001110000;
+        Control[51] = 32'b00000000001100100000001001110000;
+        Control[59] = 32'b00000000100000100000001001110000;
+        Control[60] = 32'b00000000011100100000001001110000;
 
         //I type load
-        Control[65] = 32'b00000000000100100000010100000000;
-        Control[67] = 32'b00000000000100100000010100100000;
-        Control[69] = 32'b00000000000100100000010101000000;
-        Control[73] = 32'b00000000000100100000010110000000;
-        Control[75] = 32'b00000000000100100000010110100000;
+        Control[65] = 32'b00000000000100100000001010000000;
+        Control[67] = 32'b00000000000100100000001010010000;
+        Control[69] = 32'b00000000000100100000001010100000;
+        Control[73] = 32'b00000000000100100000001011000000;
+        Control[75] = 32'b00000000000100100000001011010000;
 
         //Stype
-        Control[81] = 32'b00000000000100011000010011100000;
-        Control[83] = 32'b00000000000100010000010011100000;
-        Control[85] = 32'b00000000000100001000010011100000;
+        Control[81] = 32'b00000000000100001100001001110000;
+        Control[83] = 32'b00000000000100001000001001110000;
+        Control[85] = 32'b00000000000100000100001001110000;
 
         //sb type
-        Control[97] = 32'b00000000000101000001010011100000;
-        Control[99] = 32'b00000000000101000001010011100000;
-        Control[105] = 32'b00000000000101000001010011100000;
-        Control[107] = 32'b00000000000101000001010011100000;
-        Control[109] = 32'b00000000000101000101010011100000;
-        Control[111] = 32'b00000000000101000101010011100000;
+        Control[97] = 32'b00000000000101000000101001110000;
+        Control[99] = 32'b00000000000101000000101001110000;
+        Control[105] = 32'b00000000000101000000101001110000;
+        Control[107] = 32'b00000000000101000000101001110000;
+        Control[109] = 32'b00000000000101000010101001110000;
+        Control[111] = 32'b00000000000101000010101001110000;
 
         //Jtype
-        Control[113] = 32'b00000000000110100001011011100000;
+        Control[113] = 32'b00000000000110100000101101110000;
 
+        //MEMCOPY 
+        Control[145] = 32'b10010010000111000000011000000101; //MEMCOPY
+        Control[147] = 32'b10010100000111000101100000000110;
+        Control[149] = 32'b10010010000111000000011000001101;
+        Control[150] = 32'b00000000000000000000000000000010;
     end
 
 
@@ -124,17 +136,17 @@ module newController(
         funct3 = instruction[14:12];
         funct7 = instruction[31:25];
         
-        nextOp = microIns[31:24];
+        tempOp = microIns[31:24];
         aluControl = microIns[23:20];
         pccon = microIns[19:18];
         regWrite = microIns[17];
-        memWrite = microIns[16:15];
-        branch = microIns[14];
-        aSel = microIns[13:12];
-        bSel = microIns[11:10];
-        wSel = microIns[9:8];
-        extSel = microIns[7:5];
-        memWsel = microIns[4];
+        memWriteCon = microIns[16:14];
+        branch = microIns[13];
+        aSel = microIns[12:11];
+        bSel = microIns[10:9];
+        wSel = microIns[8:7];
+        extSel = microIns[6:4];
+        // memWsel = microIns[4];
         increment = microIns[3];
         counterEn = microIns[2];
         memWsel = microIns[1];
@@ -142,8 +154,8 @@ module newController(
     end
     
    
-    
-    logic [6:0] R_TYPE, LW, SW, ITYPE_ADD, BR, JALR, JAL,AUIPC,LUI;
+//prepare microinstruction and get microinstruction from control memory  
+    logic [6:0] R_TYPE, LW, SW, ITYPE_ADD, BR, JALR, JAL,AUIPC,LUI,MEMCOPY;
     assign  BR     = 7'b1100011;
     assign  R_TYPE = 7'b0110011;
     assign  LW     = 7'b0000011;
@@ -215,7 +227,8 @@ module newController(
                 // insmicroOp = _ +1;
             end
             MEMCOPY : begin
-                insmicroOp = 4'b1001;
+                insmicroOp = 144;
+
                 // insmicroOp = _ +1;
             end
             default:
@@ -223,23 +236,45 @@ module newController(
         endcase
     
     //get microinstruction from control memory
-    always_comb begin
+        // if(pccon == 2'b11)
+            
+        //     microOp = nextOp;
+        // else
+        //     microOp = insmicroOp + 1 ;
 
-        if(nextOp != 8'b00000000)
-            microOp = nextOp;
-        else
-            microOp = insmicroOp + 1 ;
+        // if(rst)
+        //     microOp = 0;
 
-        if(rst)
+    always_ff @(posedge clk) begin
+        if(rst) begin
             microOp = 0;
+        end
+        else begin
+            if(pccon == 2'b11)
+            
+                microOp <= nextOp +1;
+            else
+                microOp <= insmicroOp + 1 ;
+        end
+    end 
 
+
+
+
+
+    always_comb begin
         microIns = Control[microOp] ;
     end
 
+//change nextOp
+always_comb
+    if(tempOp == 8'b10010100)//memcopy
+        nextOp = {tempOp[7:1],jump};
+    else
+        nextOp = tempOp;
 
 
-    
-     //pcSel //beq,blt
+//pcSel //beq,blt
     always_comb begin
         if(pccon == 1)
             case(funct3)
@@ -285,10 +320,28 @@ module newController(
         end
     
     
-//if(microOP == )begin
-//   if(something)
-         
+//determine jump and extSel
+always_comb begin
+    if(tempOp == 8'b10010100 && ilt[1] == 1'b1) // imm == cnt
+        jump = 1;
+    else
+        jump = 0;
 
-//end
+    if(tempOp == 8'h94 && ilt[0] == 1'b1)  //$unsigned(imm) < $unsigned(cntPlus4)                                   
+        case(diff)
+            2'b00: memWrite = 3'b000;
+            2'b01: memWrite = 3'b100;
+            2'b10: memWrite = 3'b101;
+            2'b11: memWrite = 3'b110;
+            default: memWrite = 3'b000;
+        endcase
+    else
+        memWrite = memWriteCon;
+        // memWrite = 3;
+
+end
+
+
+
 
 endmodule

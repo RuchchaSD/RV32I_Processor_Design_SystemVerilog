@@ -30,19 +30,13 @@ module RISCV32I#(
     );
 
     logic beq,blt,regWrite,branch,increment, counterEn, memWsel, dataregWrite;
-    logic regWriten,branchn,incrementn, counterEnn, memWseln, dataregWriten; //
-    logic [1:0] pcSel,wSel,memWrite,aSel,bSel,diff,ilt;
-    logic [1:0] pcSeln,wSeln,memWriten,aSeln,bSeln,diffn,iltn; // 
-    logic [3:0] immSel;
-    logic [3:0] immSeln;//
+    logic [2:0] pcSel,wSel,memWrite,aSel,bSel,diff,ilt;
     logic [3:0] aluControl;
-    logic [3:0] aluControln;//
     logic [31:0] instruction,nextPC,PC;
     logic [2:0] extSel;
-    logic [2:0] extSeln;//
 
     instruction_fetch ins(clk,rst, pcSel,aluOut,instruction,nextPC,PC);
     // controller c(clk, instruction, beq, blt,diff,ilt, immSel, aluControl, pcSel, regWrite, memWrite, branch,aSel,bSel,wSel, extSel,increment, counterEn, memWsel, dataregWrite);
-    datapath d(clk, rst, nextPC, PC, instruction, immSel, aluControl, regWrite, memWrite, branch, aSel, bSel, wSel,extSel,increment, counterEn, memWsel, dataregWrite, beq, blt, dataW, aluOut,diff,ilt);
-    newController nc(clk, rst, instruction, beq, blt,diff,ilt,immSel, aluControl, pcSel, regWrite, memWrite, branch,aSel,bSel,wSel, extSel,increment, counterEn, memWsel, dataregWrite);
+    datapath d(clk, rst, nextPC, PC, instruction, aluControl, regWrite, memWrite, branch, aSel, bSel, wSel,extSel,increment, counterEn, memWsel, dataregWrite, beq, blt, dataW, aluOut,diff,ilt);
+    newController nc(clk, rst, instruction, beq, blt,diff,ilt, aluControl, pcSel, regWrite, memWrite, branch,aSel,bSel,wSel, extSel,increment, counterEn, memWsel, dataregWrite);
 endmodule

@@ -25,8 +25,7 @@ module datapath(
     input rst,
     input logic [31:0] nextPC,
     input logic [31:0] PC,
-    input logic [31:0] instruction,
-    input logic [3:0] immSel,
+    input logic [31:0] prevInstruction,
     input logic [3:0] aluControl,
     input logic regWrite,
     input logic [2:0] memWrite,//
@@ -48,7 +47,7 @@ module datapath(
     output logic [1:0] ilt//
     );
     
-    logic [31:0] dataA, dataB, op1, op2, memOut, imm , extOut,cnt, cntPlus4,datamwrite,extIn,dataReg;
+    logic [31:0] dataA, dataB, op1, op2, memOut, imm, immediate , extOut,cnt, cntPlus4,datamwrite,extIn,dataReg, instruction;
 //    logic [2:0] extCon;
     logic isZero;
     logic [4:0] addA, addB, addW;
@@ -57,15 +56,19 @@ module datapath(
     
     register_memory reg_mem(clk, rst, regWrite, addW, addA, addB, dataW, dataA, dataB);
     alu alu(aluControl, op1, op2, aluOut, isZero);
-    data_memory dMem(clk, memWrite, aluOut, dataB, memOut);
+    data_memory dMem(clk, memWrite, aluOut, datamwrite, memOut);
     imm_gen immg(instruction, imm);
     data_extract de(memOut, extSel, extOut);
     branch_comp bc(branch, dataA, dataB, beq, blt);
     cycle_counter cc(increment, counterEn, cnt, cntPlus4);
     
-    always_ff @(posedge dataregWrite)begin
-        dataReg <= memOut;
+    always_ff @(negedge clk)begin
+        if(dataregWrite)
+            dataReg <= memOut;
     end
+
+    always_ff @(posedge clk)
+        instruction <= prevInstruction;
     
     
     always_comb begin
@@ -78,18 +81,18 @@ module datapath(
         if(bSel == 1)
             op2 = imm;
         else if(bSel == 2)
-            op1  = cnt;
+            op2 = 0;
         else if(bSel == 3)
-            op1 = 0;
+            op2  = cnt;
         else
             op2 = dataB;
         
         if(aSel == 1)
             op1 = PC;
         else if(aSel == 2)
-            op1  = cnt;
-        else if(aSel ==3)
             op1 = 0;
+        else if(aSel ==3)
+            op1  = cnt;
         else
             op1 = dataA;
         
@@ -110,12 +113,11 @@ module datapath(
             
     //count comparator
     always_comb begin 
+        // ilt[0] = $unsigned(imm) < $unsigned(cntPlus4);
         ilt[0] = $unsigned(imm) < $unsigned(cntPlus4);
-        ilt[1] = imm == cntPlus4;
+        ilt[1] = imm == cnt;
         diff = $unsigned(cntPlus4[1:0]) - $unsigned(imm[1:0]);
     end
     //extSel, extCon
-    
-    
 
 endmodule
