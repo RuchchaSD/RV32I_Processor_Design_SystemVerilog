@@ -37,17 +37,14 @@ module register_memory#(
 
     logic [DATA_WIDTH-1:0] regs [REGISTER_WIDTH-1:0];
 
-    always @(negedge clk or negedge rst) 
+    always @(negedge clk) 
     begin
         if (rst) 
         begin
-            for (int i = 3; i < REGISTER_WIDTH; i++) 
+            for (int i = 0; i < REGISTER_WIDTH; i++) 
             begin
                 regs[i] <= 0;
             end
-            regs[0] <= 0;
-            regs[1] <= 13;
-            regs[2] <= 25;
         end 
         else if (regWrite) 
             begin

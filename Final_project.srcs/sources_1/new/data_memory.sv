@@ -44,14 +44,14 @@ initial begin
     // DMEM[2] = 32'hff;
     // DMEM[3] = 32'hff;
 
-    DMEM[13] = 32'h11;
-    DMEM[14] = 32'h22;
-    DMEM[15] = 32'h33;
-    DMEM[16] = 32'h44;
-    DMEM[17] = 32'h55;
-    DMEM[18] = 32'h66;
-    DMEM[19] = 32'h77;
-    DMEM[20] = 32'h88;
+//    DMEM[33] = 32'hff;
+//    DMEM[34] = 32'hff;
+//    DMEM[35] = 32'hff;
+//    DMEM[36] = 32'hff;
+//    DMEM[25] = 32'hff;
+//    DMEM[18] = 32'h66;
+//    DMEM[19] = 32'h77;
+//    DMEM[20] = 32'h88;
     
 end
 

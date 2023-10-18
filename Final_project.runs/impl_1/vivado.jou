@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Wed Oct 18 14:11:12 2023
+# Process ID: 22116
+# Current directory: D:/University/ENTC sem 5/DSD/single/Final_project/RV32I_Processor_Design_SystemVerilog/Final_project.runs/impl_1
+# Command line: vivado.exe -log RISCV32I.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source RISCV32I.tcl -notrace
+# Log file: D:/University/ENTC sem 5/DSD/single/Final_project/RV32I_Processor_Design_SystemVerilog/Final_project.runs/impl_1/RISCV32I.vdi
+# Journal file: D:/University/ENTC sem 5/DSD/single/Final_project/RV32I_Processor_Design_SystemVerilog/Final_project.runs/impl_1\vivado.jou
+# Running On: RuchchaPc, OS: Windows, CPU Frequency: 2400 MHz, CPU Physical cores: 4, Host memory: 17015 MB
+#-----------------------------------------------------------
+source RISCV32I.tcl -notrace

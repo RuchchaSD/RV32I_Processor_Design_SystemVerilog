@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7z010clg400-1" LaunchTime="1697618461">
+  <File Type="ROUTE-PWR" Name="RISCV32I_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="RISCV32I.tcl"/>
+  <File Type="BITSTR-MMI" Name="RISCV32I.mmi"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="RISCV32I_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="RISCV32I_timing_summary_init.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="RISCV32I_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="RISCV32I_reports.tcl"/>
+  <File Type="OPT-TIMING" Name="RISCV32I_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="RISCV32I_opt.dcp"/>
+  <File Type="OPT-DRC" Name="RISCV32I_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="RISCV32I.hwdef"/>
+  <File Type="PWROPT-DCP" Name="RISCV32I_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="RISCV32I_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="RISCV32I_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="RISCV32I_placed.dcp"/>
+  <File Type="PLACE-IO" Name="RISCV32I_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="RISCV32I_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="RISCV32I_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="RISCV32I_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="RISCV32I_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="RISCV32I_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="RISCV32I_incremental_reuse_pre_placed.rpt"/>
+  <File Type="BG-BIN" Name="RISCV32I.bin"/>
+  <File Type="PLACE-TIMING" Name="RISCV32I_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="RISCV32I_postplace_pwropt.dcp"/>
+  <File Type="BITSTR-MSK" Name="RISCV32I.msk"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="RISCV32I_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="RISCV32I_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="RISCV32I_drc_physopted.rpt"/>
+  <File Type="BITSTR-RBT" Name="RISCV32I.rbt"/>
+  <File Type="PHYSOPT-TIMING" Name="RISCV32I_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="RISCV32I_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="RISCV32I_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="RISCV32I_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="RISCV32I_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="RISCV32I_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="RISCV32I_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="RISCV32I_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="RISCV32I_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="RISCV32I_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="RISCV32I_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="RISCV32I_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="RISCV32I_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="RISCV32I_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="RISCV32I_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="RISCV32I_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="RISCV32I_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="RISCV32I_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="RISCV32I_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="RISCV32I_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="RISCV32I_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="RISCV32I_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="RISCV32I_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="RISCV32I_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="RISCV32I_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="RISCV32I_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="RISCV32I_bus_skew_postroute_physopted.rpt"/>
+  <File Type="BG-BIT" Name="RISCV32I.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="RISCV32I_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="RISCV32I_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-NKY" Name="RISCV32I.nky"/>
+  <File Type="BITSTR-BMM" Name="RISCV32I_bd.bmm"/>
+  <File Type="PDI-FILE" Name="RISCV32I.pdi"/>
+  <File Type="RCFI_FILE" Name="RISCV32I.rcfi"/>
+  <File Type="CFI_FILE" Name="RISCV32I.cfi"/>
+  <File Type="RNPI_FILE" Name="RISCV32I.rnpi"/>
+  <File Type="NPI_FILE" Name="RISCV32I.npi"/>
+  <File Type="RBD_FILE" Name="RISCV32I.rbd"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="RISCV32I.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="RISCV32I.sysdef"/>
+  <File Type="BG-BGN" Name="RISCV32I.bgn"/>
+  <File Type="BG-DRC" Name="RISCV32I.drc"/>
+  <File Type="RDI-RDI" Name="RISCV32I.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="ROUTE-RQS" Name="RISCV32I_routed.rqs"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="RISCV32I_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/Instruction_memory.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/alu.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/branch_comp.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/cycle_counter.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/data_extract.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/data_memory.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/datapath.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/imm_gen.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/instruction_fetch.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/newController.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/register_memory.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/RISCV32I.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/aluDecoder.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/controller.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="RISCV32I"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>

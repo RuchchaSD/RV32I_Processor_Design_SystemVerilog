@@ -47,7 +47,7 @@ module datapath(
     output logic [1:0] ilt//
     );
     
-    logic [31:0] dataA, dataB, op1, op2, memOut, imm, immediate , extOut,cnt, cntPlus4,datamwrite,extIn,dataReg, instruction;
+    logic [31:0] dataA, dataB, op1, op2, memOut, imm, extOut,cnt, cntPlus4,datamwrite,extIn,dataReg, instruction;
 //    logic [2:0] extCon;
     logic isZero;
     logic [4:0] addA, addB, addW;
@@ -116,7 +116,7 @@ module datapath(
         // ilt[0] = $unsigned(imm) < $unsigned(cntPlus4);
         ilt[0] = $unsigned(imm) < $unsigned(cntPlus4);
         ilt[1] = imm == cnt;
-        diff = $unsigned(cntPlus4[1:0]) - $unsigned(imm[1:0]);
+        diff =$unsigned(imm[1:0]) - $unsigned(cnt[1:0]) ;
     end
     //extSel, extCon
 

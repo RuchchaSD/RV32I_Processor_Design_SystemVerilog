@@ -31,7 +31,7 @@
 //                  imm = {shamt[4]? {27{1'b1}}:27'b0,shamt}; check if this works
                   imm = {{27{1'b0}},shamt};
               else 
-                  imm = {instruction[31]? 20'b1:20'b0 , instruction[31:20]};
+                  imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[31:20]};
               end
           7'b0100011 /*S-type*/    : 
               imm = {instruction[31]? {20{1'b1}}:{20{1'b0}} , instruction[31:25], instruction[11:7]};

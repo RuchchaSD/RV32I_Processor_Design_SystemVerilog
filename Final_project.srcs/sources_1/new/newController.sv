@@ -322,7 +322,7 @@ always_comb
     
 //determine jump and extSel
 always_comb begin
-    if(tempOp == 8'b10010100 && ilt[1] == 1'b1) // imm == cnt
+    if(tempOp == 8'b10010100 && ( ilt[1] == 1'b1 || ilt[0] == 1'b1 ) ) // imm == cnt
         jump = 1;
     else
         jump = 0;
